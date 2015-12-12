@@ -51,7 +51,8 @@ ZSH_THEME_GIT_PROMPT_CLEAN=""
 
 ###################################################
 
-PROMPT='${bkg}${user}${at}${host} ${separator} ${pwd} $(git_prompt_info)%E
+PROMPT='
+${bkg}${user}${at}${host} ${separator} ${pwd} $(git_prompt_info)%E
 %{$reset_color%}$(prompt_char) '
 
 ###################################################
