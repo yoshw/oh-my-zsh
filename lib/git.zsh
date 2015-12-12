@@ -7,25 +7,20 @@ function git_prompt_info() {
   fi
 }
 
+# Checks if working tree is dirty. This version stolen from Steve Losh (github.com/sjl/oh-my-zsh).
+parse_git_dirty () {
+  gitstat=$(git status 2>/dev/null | grep '\(Untracked\|Changes\|Changed but not updated:\)')
 
-# Checks if working tree is dirty
-parse_git_dirty() {
-  local STATUS=''
-  local FLAGS
-  FLAGS=('--porcelain')
-  if [[ "$(command git config --get oh-my-zsh.hide-dirty)" != "1" ]]; then
-    if [[ $POST_1_7_2_GIT -gt 0 ]]; then
-      FLAGS+='--ignore-submodules=dirty'
-    fi
-    if [[ "$DISABLE_UNTRACKED_FILES_DIRTY" == "true" ]]; then
-      FLAGS+='--untracked-files=no'
-    fi
-    STATUS=$(command git status ${FLAGS} 2> /dev/null | tail -n1)
+  if [[ $(echo ${gitstat} | grep -c "^Changes to be committed:$") > 0 ]]; then
+    echo -n "$ZSH_THEME_GIT_PROMPT_DIRTY"
   fi
-  if [[ -n $STATUS ]]; then
-    echo "$ZSH_THEME_GIT_PROMPT_DIRTY"
-  else
-    echo "$ZSH_THEME_GIT_PROMPT_CLEAN"
+
+  if [[ $(echo ${gitstat} | grep -c "^\(Untracked files:\|Changed but not updated:\|Changes not staged for commit:\)$") > 0 ]]; then
+    echo -n "$ZSH_THEME_GIT_PROMPT_UNTRACKED"
+  fi 
+
+  if [[ $(echo ${gitstat} | grep -v '^$' | wc -l | tr -d ' ') == 0 ]]; then
+    echo -n "$ZSH_THEME_GIT_PROMPT_CLEAN"
   fi
 }
 
