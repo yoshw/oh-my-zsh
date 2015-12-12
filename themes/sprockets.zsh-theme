@@ -21,36 +21,44 @@ time_disabled="%{$fg[green]%}%*%{$reset_color%}"
 time=$time_enabled
 
 # user part, color coded by privileges
-local user="%(!.%{$fg[blue]%}.%{$fg[blue]%})%n%{$reset_color%}"
+local user="%(!.%{$FG[015]%}.%{$FG[012]%})%n"
+
+local at="%{$FG[012]%}@"
 
 # Hostname part.  compressed and colorcoded per host_repr array
 # if not found, regular hostname in default color
-local host=" at ${host_repr[$HOST]:-$HOST}%{$reset_color%}"
+# local host="%{fg[cyan]%}@${host_repr[$HOST]:-$HOST}%{$reset_color%}"
+local host="%m"
 
-# Compacted $PWD
-local pwd="in %{$fg[blue]%}%c%{$reset_color%}"
-
-# steve losh's prose uses this for a longer pwd
-local long_pwd="PWD/#$HOME/~"
+local pwd="%{$FG[012]%}%~"
 
 # variable prompt character - stolen from steve losh's prose theme
 function prompt_char {
-    git branch >/dev/null 2>/dev/null && echo '±' && return
+    # git branch >/dev/null 2>/dev/null && echo '±' && return
     # hg root >/dev/null 2>/dev/null && echo '☿' && return
-    echo '$'
+    echo '%(!.#.$)'
 }
 
-PROMPT='${user}${host} ${pwd} $(git_prompt_info)$(prompt_char) '
+local separator="%{$FG[130]%}::"
 
-# i would prefer 1 icon that shows the "most drastic" deviation from HEAD,
-# but lets see how this works out
-ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[yellow]%}"
-ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%} "
-ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[red]%}(x)"
-ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[green]%}(o)"
+local bkg="%{$BG[234]%}"
+
+ZSH_THEME_GIT_PROMPT_PREFIX="${separator} %{$FG[015]%}± %{$FG[012]%}("
+ZSH_THEME_GIT_PROMPT_SUFFIX="%{$FG[012]%})"
+ZSH_THEME_GIT_PROMPT_DIRTY="%{$FG[010]%}!"
+ZSH_THEME_GIT_PROMPT_UNTRACKED="%{$FG[001]%}!"
+ZSH_THEME_GIT_PROMPT_CLEAN=""
+
+###################################################
+
+PROMPT='
+${bkg}${user}${at}${host} ${separator} ${pwd} $(git_prompt_info)%E
+%{$reset_color%}$(prompt_char) '
+
+###################################################
 
 # elaborate exitcode on the right when >0
-return_code_enabled="%(?..%{$fg[red]%}%? ↵%{$reset_color%})"
+return_code_enabled="%(?..%{$FG[001]%}%? ↵)"
 return_code_disabled=
 return_code=$return_code_enabled
 
