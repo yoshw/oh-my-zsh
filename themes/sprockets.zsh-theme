@@ -20,17 +20,19 @@ time_enabled="%(?.%{$fg[green]%}.%{$fg[red]%})%*%{$reset_color%}"
 time_disabled="%{$fg[green]%}%*%{$reset_color%}"
 time=$time_enabled
 
-# user part, color coded by privileges
-local user="%(!.%{$FG[015]%}.%{$FG[012]%})%n"
+local myblue="039"
 
-local at="%{$FG[012]%}@"
+# user part, color coded by privileges
+local user="%(!.%{$FG[015]%}.%{$FG[${myblue}]%})%n"
+
+local at="%{$FG[${myblue}]%}@"
 
 # Hostname part.  compressed and colorcoded per host_repr array
 # if not found, regular hostname in default color
 # local host="%{fg[cyan]%}@${host_repr[$HOST]:-$HOST}%{$reset_color%}"
 local host="%m"
 
-local pwd="%{$FG[012]%}%~"
+local pwd="%{$FG[${myblue}]%}%~"
 
 # variable prompt character - stolen from steve losh's prose theme
 function prompt_char {
@@ -43,10 +45,10 @@ local separator="%{$FG[130]%}::"
 
 local bkg="%{$BG[234]%}"
 
-ZSH_THEME_GIT_PROMPT_PREFIX="${separator} %{$FG[015]%}± %{$FG[012]%}("
-ZSH_THEME_GIT_PROMPT_SUFFIX="%{$FG[012]%})"
-ZSH_THEME_GIT_PROMPT_DIRTY="%{$FG[010]%}!"
-ZSH_THEME_GIT_PROMPT_UNTRACKED="%{$FG[001]%}!"
+ZSH_THEME_GIT_PROMPT_PREFIX="${separator} %{$FG[015]%}± %{$FG[${myblue}]%}("
+ZSH_THEME_GIT_PROMPT_SUFFIX="%{$FG[${myblue}]%})"
+ZSH_THEME_GIT_PROMPT_DIRTY="%{$FG[010]%}•"
+ZSH_THEME_GIT_PROMPT_UNTRACKED="%{$FG[001]%}•"
 ZSH_THEME_GIT_PROMPT_CLEAN=""
 
 ###################################################
