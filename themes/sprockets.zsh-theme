@@ -20,17 +20,18 @@ time_enabled="%(?.%{$fg[green]%}.%{$fg[red]%})%*%{$reset_color%}"
 time_disabled="%{$fg[green]%}%*%{$reset_color%}"
 time=$time_enabled
 
-local myblue="039"
+local myblue="081"
+local mypaleblue="067"
 
 # user part, color coded by privileges
-local user="%(!.%{$FG[015]%}.%{$FG[${myblue}]%})%n"
+local user="%(!.%{$FG[015]%}.%{$FG[${mypaleblue}]%})%n"
 
-local at="%{$FG[${myblue}]%}@"
+local at="%{$FG[${mypaleblue}]%}@"
 
 # Hostname part.  compressed and colorcoded per host_repr array
 # if not found, regular hostname in default color
 # local host="%{fg[cyan]%}@${host_repr[$HOST]:-$HOST}%{$reset_color%}"
-local host="%m"
+local host="%{$FG[${mypaleblue}]%}%m"
 
 local pwd="%{$FG[${myblue}]%}%~"
 
@@ -43,10 +44,12 @@ function prompt_char {
 
 local separator="%{$FG[130]%}::"
 
-local bkg="%{$BG[234]%}"
+local bkg="%{$BG[233]%}"
 
-ZSH_THEME_GIT_PROMPT_PREFIX="${separator} %{$FG[015]%}± %{$FG[${myblue}]%}("
-ZSH_THEME_GIT_PROMPT_SUFFIX="%{$FG[${myblue}]%})"
+local gitcolour="%{$FG[003]%}"
+
+ZSH_THEME_GIT_PROMPT_PREFIX="${separator} ${gitcolour}± ("
+ZSH_THEME_GIT_PROMPT_SUFFIX="${gitcolour})"
 ZSH_THEME_GIT_PROMPT_DIRTY="%{$FG[010]%}•"
 ZSH_THEME_GIT_PROMPT_UNTRACKED="%{$FG[001]%}•"
 ZSH_THEME_GIT_PROMPT_CLEAN=""
