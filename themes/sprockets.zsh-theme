@@ -48,7 +48,7 @@ local bkg="%{$BG[233]%}"
 
 local gitcolour="%{$FG[003]%}"
 
-ZSH_THEME_GIT_PROMPT_PREFIX="${separator} ${gitcolour}± ("
+ZSH_THEME_GIT_PROMPT_PREFIX="${separator} ${gitcolour}±("
 ZSH_THEME_GIT_PROMPT_SUFFIX="${gitcolour})"
 ZSH_THEME_GIT_PROMPT_DIRTY="%{$FG[010]%}•"
 ZSH_THEME_GIT_PROMPT_UNTRACKED="%{$FG[001]%}•"
